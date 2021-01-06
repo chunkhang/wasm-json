@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Go WebAssembly</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="wasm_exec.js"></script>
+    <script>
+      const go = new Go()
+      WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+        go.run(result.instance)
+      })
+    </script>
+  </head>
+  <body>
+    <section class="hero is-info">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Go WebAssembly
+          </h1>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <textarea id="input" class="textarea" placeholder="Enter JSON to be formatted here" rows="15"></textarea>
+            <div class="mt-4">
+              <button id="format" class="button is-link mr-2">Format</button>
+              <button id="clear" class="button is-danger">Clear</button>
+            </div>
+          </div>
+          <div class="column">
+            <textarea id="output" class="textarea" rows="15" readonly>Formatted JSON will be shown here</textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script src="main.js"></script>
+</html>
